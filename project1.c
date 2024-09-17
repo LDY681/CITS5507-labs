@@ -163,12 +163,12 @@
      * @param Yindices {vector<vector<>>} the Yindices matrix
      * @param NThreads {int} number of threads
      */
-    vector<vector<int>> compressedMatrixMultiply(vector<vector<int>> &Xvalues, vector<vector<int>> &Xindices, vector<vector<int>> &Yvalues, vector<vector<int>> &Yindices, int NThreads) {
+    vector<vector<int>> compressedMatrixMultiply(vector<vector<int>> &Xvalues, vector<vector<int>> &Xindices, vector<vector<int>> &Yvalues, vector<vector<int>> &Yindices) {
         // Initialize resulting matrix with all zeros
         vector<vector<int>> result(NROWS, vector<int>(NCOLS, 0));
 
         if (DEBUG) cout << "Compressed matrixMultiply:\n";
-        #pragma omp parallel for num_threads(NThreads)
+        #pragma omp parallel for
         for (int i = 0; i < Xvalues.size(); i++) {   // # of rows are fixed
             for (int j = 0; j < Xvalues[i].size(); j++) {
                 int X_value = Xvalues[i][j];
@@ -179,7 +179,7 @@
                     int Y_value = Yvalues[X_indice][k];
                     int Y_indice = Yindices[X_indice][k];
 
-                    //! TODO this operation creates lots of overhead, but creating local copies of huge matrix is impractical....
+                    //! this operation creates lots of overhead, but creating local copies of huge matrix is impractical....
                     #pragma omp atomic
                     result[i][Y_indice] += X_value * Y_value;
                 }
@@ -272,7 +272,7 @@
 
             // Compres ordinary matrix multiply and compressed matrix multiply
             if (DEBUG) outputOriginal = matrixMultiply(X, Y);
-            if (DEBUG) outputCompressed = compressedMatrixMultiply(Xvalues, Xindices, Yvalues, Yindices, 256);
+            if (DEBUG) outputCompressed = compressedMatrixMultiply(Xvalues, Xindices, Yvalues, Yindices);
             if (DEBUG) cout << "Are these two matrix identical?: " << boolalpha << checkIntegrity(outputOriginal, outputCompressed) << endl;
 
             cout << "Matrices generated!" << endl;
@@ -288,17 +288,22 @@
         if (mode == "start") {
             cout << "==================Starting Experiments====================" << endl;
             for (int num_threads = minThreads; num_threads <= maxThreads; num_threads++) {
+                omp_set_num_threads(num_threads);
                 cout << "<<<<<<<<<< Evaluating timelapse with probability: " << percent << " and " << num_threads << " threads >>>>>>>>>>" << endl;
 
                 // Time counter + compressed matrix multiplication
-                auto start = chrono::high_resolution_clock::now();
-                compressedMatrixMultiply(Xvalues, Xindices, Yvalues, Yindices, num_threads);
-                auto end = chrono::high_resolution_clock::now();
+                double start = omp_get_wtime();
+                compressedMatrixMultiply(Xvalues, Xindices, Yvalues, Yindices);
+                double end = omp_get_wtime();
+
+
+                // Get the current system time for the "Finished at" timestamp
+                auto now = std::chrono::system_clock::now();
+                time_t end_time = std::chrono::system_clock::to_time_t(now);
 
                 // Print timelapse
-                chrono::duration<double> elapsed = end - start;
-                time_t end_time = chrono::system_clock::to_time_t(end);
-                cout << "Finished at " << ctime(&end_time) << "Elapsed time: " << elapsed.count() << "s\n";
+                double elapsed = end - start;
+                cout << "Finished at " << ctime(&end_time) << "Elapsed time: " << elapsed << "s\n";
             }
         }
         return 0;

@@ -1,0 +1,9 @@
+==================Running Project====================
+DEBUG: false
+mode: init
+percent: 5
+NROWS: 100000
+NCOLS: 100000
+==================Generating Matrices====================
+Generating matrices with probability: 5
+Matrices generated!

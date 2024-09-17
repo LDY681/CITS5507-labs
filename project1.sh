@@ -26,8 +26,5 @@ export OMP_PLACES=cores      # Bind each thread to a specific core
 # compile project executable
 g++ -o project1 -fopenmp ./project1.c
 
-# adjust cpus-per-task based on max thread count
-#SBATCH --cpus-per-task=$MAXTHREADS
-
 # pass the probability for matrix generation
-srun ./project1 $ARG1 $ARG2 $ARG3
+srun --cpus-per-task=$MAXTHREADS ./project1 $ARG1 $ARG2 $ARG3

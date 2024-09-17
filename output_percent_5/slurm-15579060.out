@@ -1,0 +1,29 @@
+srun ./project1 start 6-10 5
+Running with --cpus-per-task=10
+==================Running Project====================
+DEBUG: false
+mode: start
+percent: 5
+minThreads: 6
+maxThreads: 10
+NROWS: 100000
+NCOLS: 100000
+==================Loading Matrices====================
+Loading matrices with probability: 5
+Matrices loaded!
+==================Starting Experiments====================
+<<<<<<<<<< Evaluating timelapse with probability: 5 and 6 threads >>>>>>>>>>
+Finished at Sun Sep 15 13:21:28 2024
+Elapsed time: 5825.17s
+<<<<<<<<<< Evaluating timelapse with probability: 5 and 7 threads >>>>>>>>>>
+Finished at Sun Sep 15 14:44:22 2024
+Elapsed time: 4973.39s
+<<<<<<<<<< Evaluating timelapse with probability: 5 and 8 threads >>>>>>>>>>
+Finished at Sun Sep 15 15:57:13 2024
+Elapsed time: 4370.91s
+<<<<<<<<<< Evaluating timelapse with probability: 5 and 9 threads >>>>>>>>>>
+Finished at Sun Sep 15 17:05:26 2024
+Elapsed time: 4092.81s
+<<<<<<<<<< Evaluating timelapse with probability: 5 and 10 threads >>>>>>>>>>
+Finished at Sun Sep 15 18:10:15 2024
+Elapsed time: 3889.31s

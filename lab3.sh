@@ -7,4 +7,5 @@
 #SBATCH --time=00:00:01
 cc -o lab3 -fopenmp ./lab3.c
 export OMP_NUM_THREADS=100
+
 srun ./lab3

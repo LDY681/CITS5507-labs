@@ -1,0 +1,44 @@
+srun ./project1 start 41-50 5
+Running with --cpus-per-task=50
+==================Running Project====================
+DEBUG: false
+mode: start
+percent: 5
+minThreads: 41
+maxThreads: 50
+NROWS: 100000
+NCOLS: 100000
+==================Loading Matrices====================
+Loading matrices with probability: 5
+Matrices loaded!
+==================Starting Experiments====================
+<<<<<<<<<< Evaluating timelapse with probability: 5 and 41 threads >>>>>>>>>>
+Finished at Sun Sep 15 11:57:17 2024
+Elapsed time: 1297.35s
+<<<<<<<<<< Evaluating timelapse with probability: 5 and 42 threads >>>>>>>>>>
+Finished at Sun Sep 15 12:18:15 2024
+Elapsed time: 1258.16s
+<<<<<<<<<< Evaluating timelapse with probability: 5 and 43 threads >>>>>>>>>>
+Finished at Sun Sep 15 12:38:47 2024
+Elapsed time: 1232.23s
+<<<<<<<<<< Evaluating timelapse with probability: 5 and 44 threads >>>>>>>>>>
+Finished at Sun Sep 15 12:58:53 2024
+Elapsed time: 1205.87s
+<<<<<<<<<< Evaluating timelapse with probability: 5 and 45 threads >>>>>>>>>>
+Finished at Sun Sep 15 13:18:33 2024
+Elapsed time: 1179.74s
+<<<<<<<<<< Evaluating timelapse with probability: 5 and 46 threads >>>>>>>>>>
+Finished at Sun Sep 15 13:37:51 2024
+Elapsed time: 1157.91s
+<<<<<<<<<< Evaluating timelapse with probability: 5 and 47 threads >>>>>>>>>>
+Finished at Sun Sep 15 13:56:46 2024
+Elapsed time: 1135.5s
+<<<<<<<<<< Evaluating timelapse with probability: 5 and 48 threads >>>>>>>>>>
+Finished at Sun Sep 15 14:15:20 2024
+Elapsed time: 1113.65s
+<<<<<<<<<< Evaluating timelapse with probability: 5 and 49 threads >>>>>>>>>>
+Finished at Sun Sep 15 14:33:36 2024
+Elapsed time: 1095.81s
+<<<<<<<<<< Evaluating timelapse with probability: 5 and 50 threads >>>>>>>>>>
+Finished at Sun Sep 15 14:51:31 2024
+Elapsed time: 1074.7s

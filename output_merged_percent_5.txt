@@ -1,0 +1,360 @@
+<<<<<<<<< Evaluating timelapse with probability: 5 and 1 threads >>>>>>>>>>
+Finished at Sun Sep 15 21:04:38 2024
+Elapsed time: 34327.9s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 2 threads >>>>>>>>>>
+Finished at Mon Sep 16 01:50:12 2024
+Elapsed time: 17133.4s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 3 threads >>>>>>>>>>
+Finished at Sun Sep 15 14:55:40 2024
+Elapsed time: 11487s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 4 threads >>>>>>>>>>
+Finished at Sun Sep 15 17:19:16 2024
+Elapsed time: 8616.05s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 5 threads >>>>>>>>>>
+Finished at Sun Sep 15 19:14:24 2024
+Elapsed time: 6907.46s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 6 threads >>>>>>>>>>
+Finished at Sun Sep 15 13:21:28 2024
+Elapsed time: 5825.17s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 7 threads >>>>>>>>>>
+Finished at Sun Sep 15 14:44:22 2024
+Elapsed time: 4973.39s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 8 threads >>>>>>>>>>
+Finished at Sun Sep 15 15:57:13 2024
+Elapsed time: 4370.91s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 9 threads >>>>>>>>>>
+Finished at Sun Sep 15 17:05:26 2024
+Elapsed time: 4092.81s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 10 threads >>>>>>>>>>
+Finished at Sun Sep 15 18:10:15 2024
+Elapsed time: 3889.31s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 11 threads >>>>>>>>>>
+Finished at Sun Sep 15 12:31:06 2024
+Elapsed time: 3528.33s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 12 threads >>>>>>>>>>
+Finished at Sun Sep 15 13:25:12 2024
+Elapsed time: 3246.21s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 13 threads >>>>>>>>>>
+Finished at Sun Sep 15 14:14:59 2024
+Elapsed time: 2986.28s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 14 threads >>>>>>>>>>
+Finished at Sun Sep 15 15:01:13 2024
+Elapsed time: 2774.94s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 15 threads >>>>>>>>>>
+Finished at Sun Sep 15 15:44:30 2024
+Elapsed time: 2596.59s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 16 threads >>>>>>>>>>
+Finished at Sun Sep 15 16:25:06 2024
+Elapsed time: 2436.35s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 17 threads >>>>>>>>>>
+Finished at Sun Sep 15 17:03:21 2024
+Elapsed time: 2294.63s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 18 threads >>>>>>>>>>
+Finished at Sun Sep 15 17:39:27 2024
+Elapsed time: 2166.09s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 19 threads >>>>>>>>>>
+Finished at Sun Sep 15 18:13:40 2024
+Elapsed time: 2053.09s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 20 threads >>>>>>>>>>
+Finished at Sun Sep 15 18:46:12 2024
+Elapsed time: 1951.35s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 21 threads >>>>>>>>>>
+Finished at Sun Sep 15 12:03:59 2024
+Elapsed time: 1863.26s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 22 threads >>>>>>>>>>
+Finished at Sun Sep 15 12:33:38 2024
+Elapsed time: 1779.17s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 23 threads >>>>>>>>>>
+Finished at Sun Sep 15 13:02:01 2024
+Elapsed time: 1702.56s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 24 threads >>>>>>>>>>
+Finished at Sun Sep 15 13:29:11 2024
+Elapsed time: 1630.1s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 25 threads >>>>>>>>>>
+Finished at Sun Sep 15 13:55:19 2024
+Elapsed time: 1568.43s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 26 threads >>>>>>>>>>
+Finished at Sun Sep 15 14:20:29 2024
+Elapsed time: 1509.64s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 27 threads >>>>>>>>>>
+Finished at Sun Sep 15 14:44:48 2024
+Elapsed time: 1459.57s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 28 threads >>>>>>>>>>
+Finished at Sun Sep 15 15:08:10 2024
+Elapsed time: 1402.13s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 29 threads >>>>>>>>>>
+Finished at Sun Sep 15 15:30:46 2024
+Elapsed time: 1355.31s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 30 threads >>>>>>>>>>
+Finished at Sun Sep 15 15:52:37 2024
+Elapsed time: 1311.6s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 31 threads >>>>>>>>>>
+Finished at Sun Sep 15 11:57:41 2024
+Elapsed time: 1394.19s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 32 threads >>>>>>>>>>
+Finished at Sun Sep 15 12:22:48 2024
+Elapsed time: 1506.65s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 33 threads >>>>>>>>>>
+Finished at Sun Sep 15 12:47:18 2024
+Elapsed time: 1470.79s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 34 threads >>>>>>>>>>
+Finished at Sun Sep 15 13:11:10 2024
+Elapsed time: 1431.43s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 35 threads >>>>>>>>>>
+Finished at Sun Sep 15 13:34:25 2024
+Elapsed time: 1394.77s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 36 threads >>>>>>>>>>
+Finished at Sun Sep 15 13:57:02 2024
+Elapsed time: 1357.3s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 37 threads >>>>>>>>>>
+Finished at Sun Sep 15 14:19:02 2024
+Elapsed time: 1320.28s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 38 threads >>>>>>>>>>
+Finished at Sun Sep 15 14:40:16 2024
+Elapsed time: 1274.01s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 39 threads >>>>>>>>>>
+Finished at Sun Sep 15 15:00:55 2024
+Elapsed time: 1239.22s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 40 threads >>>>>>>>>>
+Finished at Sun Sep 15 15:21:03 2024
+Elapsed time: 1207.59s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 41 threads >>>>>>>>>>
+Finished at Sun Sep 15 11:57:17 2024
+Elapsed time: 1297.35s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 42 threads >>>>>>>>>>
+Finished at Sun Sep 15 12:18:15 2024
+Elapsed time: 1258.16s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 43 threads >>>>>>>>>>
+Finished at Sun Sep 15 12:38:47 2024
+Elapsed time: 1232.23s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 44 threads >>>>>>>>>>
+Finished at Sun Sep 15 12:58:53 2024
+Elapsed time: 1205.87s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 45 threads >>>>>>>>>>
+Finished at Sun Sep 15 13:18:33 2024
+Elapsed time: 1179.74s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 46 threads >>>>>>>>>>
+Finished at Sun Sep 15 13:37:51 2024
+Elapsed time: 1157.91s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 47 threads >>>>>>>>>>
+Finished at Sun Sep 15 13:56:46 2024
+Elapsed time: 1135.5s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 48 threads >>>>>>>>>>
+Finished at Sun Sep 15 14:15:20 2024
+Elapsed time: 1113.65s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 49 threads >>>>>>>>>>
+Finished at Sun Sep 15 14:33:36 2024
+Elapsed time: 1095.81s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 50 threads >>>>>>>>>>
+Finished at Sun Sep 15 14:51:31 2024
+Elapsed time: 1074.7s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 51 threads >>>>>>>>>>
+Finished at Sun Sep 15 11:55:21 2024
+Elapsed time: 1075.97s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 52 threads >>>>>>>>>>
+Finished at Sun Sep 15 12:13:13 2024
+Elapsed time: 1072.46s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 53 threads >>>>>>>>>>
+Finished at Sun Sep 15 12:30:49 2024
+Elapsed time: 1055.56s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 54 threads >>>>>>>>>>
+Finished at Sun Sep 15 12:47:55 2024
+Elapsed time: 1025.94s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 55 threads >>>>>>>>>>
+Finished at Sun Sep 15 13:04:29 2024
+Elapsed time: 994.482s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 56 threads >>>>>>>>>>
+Finished at Sun Sep 15 13:20:53 2024
+Elapsed time: 983.192s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 57 threads >>>>>>>>>>
+Finished at Sun Sep 15 13:37:03 2024
+Elapsed time: 970.05s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 58 threads >>>>>>>>>>
+Finished at Sun Sep 15 13:53:03 2024
+Elapsed time: 960.242s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 59 threads >>>>>>>>>>
+Finished at Sun Sep 15 14:08:53 2024
+Elapsed time: 950.343s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 60 threads >>>>>>>>>>
+Finished at Sun Sep 15 14:24:31 2024
+Elapsed time: 938.196s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 61 threads >>>>>>>>>>
+Finished at Mon Sep 16 11:58:11 2024
+Elapsed time: 1005.73s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 62 threads >>>>>>>>>>
+Finished at Mon Sep 16 12:14:41 2024
+Elapsed time: 990.115s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 63 threads >>>>>>>>>>
+Finished at Mon Sep 16 12:30:55 2024
+Elapsed time: 973.792s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 64 threads >>>>>>>>>>
+Finished at Mon Sep 16 12:47:27 2024
+Elapsed time: 992.403s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 65 threads >>>>>>>>>>
+Finished at Mon Sep 16 13:03:32 2024
+Elapsed time: 964.893s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 66 threads >>>>>>>>>>
+Finished at Mon Sep 16 13:19:06 2024
+Elapsed time: 933.834s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 67 threads >>>>>>>>>>
+Finished at Mon Sep 16 13:34:23 2024
+Elapsed time: 916.729s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 68 threads >>>>>>>>>>
+Finished at Mon Sep 16 13:49:34 2024
+Elapsed time: 910.762s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 69 threads >>>>>>>>>>
+Finished at Mon Sep 16 14:04:22 2024
+Elapsed time: 888.96s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 70 threads >>>>>>>>>>
+Finished at Mon Sep 16 14:19:08 2024
+Elapsed time: 885.712s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 71 threads >>>>>>>>>>
+Finished at Mon Sep 16 14:33:34 2024
+Elapsed time: 865.418s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 72 threads >>>>>>>>>>
+Finished at Mon Sep 16 14:47:50 2024
+Elapsed time: 856.014s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 73 threads >>>>>>>>>>
+Finished at Mon Sep 16 15:02:00 2024
+Elapsed time: 850.187s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 74 threads >>>>>>>>>>
+Finished at Mon Sep 16 15:15:59 2024
+Elapsed time: 838.964s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 75 threads >>>>>>>>>>
+Finished at Mon Sep 16 15:29:45 2024
+Elapsed time: 826.693s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 76 threads >>>>>>>>>>
+Finished at Mon Sep 16 15:43:19 2024
+Elapsed time: 813.865s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 77 threads >>>>>>>>>>
+Finished at Mon Sep 16 15:57:37 2024
+Elapsed time: 857.217s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 78 threads >>>>>>>>>>
+Finished at Mon Sep 16 16:11:03 2024
+Elapsed time: 806.636s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 79 threads >>>>>>>>>>
+Finished at Mon Sep 16 16:24:09 2024
+Elapsed time: 786.104s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 80 threads >>>>>>>>>>
+Finished at Mon Sep 16 16:37:08 2024
+Elapsed time: 778.801s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 81 threads >>>>>>>>>>
+Finished at Mon Sep 16 21:42:12 2024
+Elapsed time: 789.806s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 82 threads >>>>>>>>>>
+Finished at Mon Sep 16 21:55:09 2024
+Elapsed time: 776.845s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 83 threads >>>>>>>>>>
+Finished at Mon Sep 16 22:08:01 2024
+Elapsed time: 771.592s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 84 threads >>>>>>>>>>
+Finished at Mon Sep 16 22:20:38 2024
+Elapsed time: 757.593s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 85 threads >>>>>>>>>>
+Finished at Mon Sep 16 22:32:58 2024
+Elapsed time: 739.22s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 86 threads >>>>>>>>>>
+Finished at Mon Sep 16 22:45:20 2024
+Elapsed time: 742.123s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 87 threads >>>>>>>>>>
+Finished at Mon Sep 16 22:57:38 2024
+Elapsed time: 738.172s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 88 threads >>>>>>>>>>
+Finished at Mon Sep 16 23:09:43 2024
+Elapsed time: 725.067s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 89 threads >>>>>>>>>>
+Finished at Mon Sep 16 23:21:36 2024
+Elapsed time: 712.865s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 90 threads >>>>>>>>>>
+Finished at Mon Sep 16 23:33:18 2024
+Elapsed time: 701.957s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 91 threads >>>>>>>>>>
+Finished at Mon Sep 16 23:44:55 2024
+Elapsed time: 697.225s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 92 threads >>>>>>>>>>
+Finished at Mon Sep 16 23:56:26 2024
+Elapsed time: 690.831s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 93 threads >>>>>>>>>>
+Finished at Tue Sep 17 00:07:54 2024
+Elapsed time: 687.909s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 94 threads >>>>>>>>>>
+Finished at Tue Sep 17 00:19:12 2024
+Elapsed time: 678.125s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 95 threads >>>>>>>>>>
+Finished at Tue Sep 17 00:30:28 2024
+Elapsed time: 676.301s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 96 threads >>>>>>>>>>
+Finished at Tue Sep 17 00:41:38 2024
+Elapsed time: 669.492s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 97 threads >>>>>>>>>>
+Finished at Tue Sep 17 00:52:36 2024
+Elapsed time: 658.102s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 98 threads >>>>>>>>>>
+Finished at Tue Sep 17 01:03:36 2024
+Elapsed time: 659.885s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 99 threads >>>>>>>>>>
+Finished at Tue Sep 17 01:14:29 2024
+Elapsed time: 653.698s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 100 threads >>>>>>>>>>
+Finished at Tue Sep 17 01:25:20 2024
+Elapsed time: 650.325s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 101 threads >>>>>>>>>>
+Finished at Mon Sep 16 21:28:17 2024
+Elapsed time: 735.217s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 102 threads >>>>>>>>>>
+Finished at Mon Sep 16 21:40:22 2024
+Elapsed time: 724.126s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 103 threads >>>>>>>>>>
+Finished at Mon Sep 16 21:52:28 2024
+Elapsed time: 726.662s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 104 threads >>>>>>>>>>
+Finished at Mon Sep 16 22:04:27 2024
+Elapsed time: 719.201s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 105 threads >>>>>>>>>>
+Finished at Mon Sep 16 22:16:11 2024
+Elapsed time: 703.642s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 106 threads >>>>>>>>>>
+Finished at Mon Sep 16 22:27:34 2024
+Elapsed time: 682.968s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 107 threads >>>>>>>>>>
+Finished at Mon Sep 16 22:38:50 2024
+Elapsed time: 675.867s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 108 threads >>>>>>>>>>
+Finished at Mon Sep 16 22:50:00 2024
+Elapsed time: 670.13s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 109 threads >>>>>>>>>>
+Finished at Mon Sep 16 23:01:07 2024
+Elapsed time: 666.819s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 110 threads >>>>>>>>>>
+Finished at Mon Sep 16 23:12:14 2024
+Elapsed time: 667.396s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 111 threads >>>>>>>>>>
+Finished at Mon Sep 16 23:23:16 2024
+Elapsed time: 661.896s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 112 threads >>>>>>>>>>
+Finished at Mon Sep 16 23:34:15 2024
+Elapsed time: 658.996s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 113 threads >>>>>>>>>>
+Finished at Mon Sep 16 23:45:03 2024
+Elapsed time: 648.336s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 114 threads >>>>>>>>>>
+Finished at Mon Sep 16 23:55:54 2024
+Elapsed time: 650.8s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 115 threads >>>>>>>>>>
+Finished at Tue Sep 17 00:06:38 2024
+Elapsed time: 643.474s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 116 threads >>>>>>>>>>
+Finished at Tue Sep 17 00:17:10 2024
+Elapsed time: 632.536s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 117 threads >>>>>>>>>>
+Finished at Tue Sep 17 00:27:48 2024
+Elapsed time: 637.711s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 118 threads >>>>>>>>>>
+Finished at Tue Sep 17 00:38:31 2024
+Elapsed time: 643.307s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 119 threads >>>>>>>>>>
+Finished at Tue Sep 17 00:49:10 2024
+Elapsed time: 638.379s
+<<<<<<<<< Evaluating timelapse with probability: 5 and 120 threads >>>>>>>>>>
+Finished at Tue Sep 17 00:59:56 2024
+Elapsed time: 646.755s

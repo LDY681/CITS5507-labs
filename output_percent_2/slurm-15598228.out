@@ -1,0 +1,77 @@
+srun ./project1 start 80-100 2
+Running with --cpus-per-task=100
+==================Running Project====================
+DEBUG: false
+mode: start
+percent: 2
+minThreads: 80
+maxThreads: 100
+NROWS: 100000
+NCOLS: 100000
+==================Loading Matrices====================
+Loading matrices with probability: 2
+Matrices loaded!
+==================Starting Experiments====================
+<<<<<<<<<< Evaluating timelapse with probability: 2 and 80 threads >>>>>>>>>>
+Finished at Mon Sep 16 21:17:58 2024
+Elapsed time: 192.671s
+<<<<<<<<<< Evaluating timelapse with probability: 2 and 81 threads >>>>>>>>>>
+Finished at Mon Sep 16 21:21:05 2024
+Elapsed time: 187.704s
+<<<<<<<<<< Evaluating timelapse with probability: 2 and 82 threads >>>>>>>>>>
+Finished at Mon Sep 16 21:24:11 2024
+Elapsed time: 185.189s
+<<<<<<<<<< Evaluating timelapse with probability: 2 and 83 threads >>>>>>>>>>
+Finished at Mon Sep 16 21:27:14 2024
+Elapsed time: 182.961s
+<<<<<<<<<< Evaluating timelapse with probability: 2 and 84 threads >>>>>>>>>>
+Finished at Mon Sep 16 21:30:15 2024
+Elapsed time: 181.84s
+<<<<<<<<<< Evaluating timelapse with probability: 2 and 85 threads >>>>>>>>>>
+Finished at Mon Sep 16 21:33:15 2024
+Elapsed time: 179.378s
+<<<<<<<<<< Evaluating timelapse with probability: 2 and 86 threads >>>>>>>>>>
+Finished at Mon Sep 16 21:36:12 2024
+Elapsed time: 177.422s
+<<<<<<<<<< Evaluating timelapse with probability: 2 and 87 threads >>>>>>>>>>
+Finished at Mon Sep 16 21:39:07 2024
+Elapsed time: 175.335s
+<<<<<<<<<< Evaluating timelapse with probability: 2 and 88 threads >>>>>>>>>>
+Finished at Mon Sep 16 21:42:01 2024
+Elapsed time: 173.856s
+<<<<<<<<<< Evaluating timelapse with probability: 2 and 89 threads >>>>>>>>>>
+Finished at Mon Sep 16 21:44:54 2024
+Elapsed time: 173.123s
+<<<<<<<<<< Evaluating timelapse with probability: 2 and 90 threads >>>>>>>>>>
+Finished at Mon Sep 16 21:47:46 2024
+Elapsed time: 171.376s
+<<<<<<<<<< Evaluating timelapse with probability: 2 and 91 threads >>>>>>>>>>
+Finished at Mon Sep 16 21:50:36 2024
+Elapsed time: 170.088s
+<<<<<<<<<< Evaluating timelapse with probability: 2 and 92 threads >>>>>>>>>>
+Finished at Mon Sep 16 21:53:24 2024
+Elapsed time: 168.169s
+<<<<<<<<<< Evaluating timelapse with probability: 2 and 93 threads >>>>>>>>>>
+Finished at Mon Sep 16 21:56:10 2024
+Elapsed time: 166.348s
+<<<<<<<<<< Evaluating timelapse with probability: 2 and 94 threads >>>>>>>>>>
+Finished at Mon Sep 16 21:58:56 2024
+Elapsed time: 165.497s
+<<<<<<<<<< Evaluating timelapse with probability: 2 and 95 threads >>>>>>>>>>
+Finished at Mon Sep 16 22:01:40 2024
+Elapsed time: 163.953s
+<<<<<<<<<< Evaluating timelapse with probability: 2 and 96 threads >>>>>>>>>>
+Finished at Mon Sep 16 22:04:22 2024
+Elapsed time: 162.205s
+<<<<<<<<<< Evaluating timelapse with probability: 2 and 97 threads >>>>>>>>>>
+Finished at Mon Sep 16 22:07:04 2024
+Elapsed time: 161.509s
+<<<<<<<<<< Evaluating timelapse with probability: 2 and 98 threads >>>>>>>>>>
+Finished at Mon Sep 16 22:09:44 2024
+Elapsed time: 160.614s
+<<<<<<<<<< Evaluating timelapse with probability: 2 and 99 threads >>>>>>>>>>
+Finished at Mon Sep 16 22:12:23 2024
+Elapsed time: 159.23s
+<<<<<<<<<< Evaluating timelapse with probability: 2 and 100 threads >>>>>>>>>>
+Finished at Mon Sep 16 22:15:01 2024
+Elapsed time: 157.601s
