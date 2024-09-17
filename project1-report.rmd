@@ -1,0 +1,115 @@
+---
+title: "CITS5507 Project 1: Parallel implentation and Optimal Findings of Compressed Matrix Multiplication"
+
+graphics: yes
+author: Dayu Liu (24188516)
+date: "Semester 2, 2024"
+---
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+library(ggplot2)
+library(knitr)
+library(gridExtra)
+```
+
+
+# Introduction
+Matrix multiplication can become exponentially costly as dimension size increases, due to the fact that sparse matrices contain mostly zero values, with only a small number of non-zero elements. This leads to unnecessary computations involving zeros, which are inefficient both in terms of time and memory. In this project, a customized and simplier implementation of compressed matrix are used to address these issues. And our objective was to parallelise this compressed matrix multiplication process and perform a range of experiments assessing the impact of changing the parameters and parallelisation schedulings on execution time. All of the code implementation and lab results can be found in the submited zip file.
+
+# Experiment Workflow
+The experiment can be broken down into 2 parts.
+In the first step, we need to complete the implementation for our compressed matrix multiplication algorithm, a helper function of ordinary matrix multiplication was also created to check integrity of results and make sure our implementation was correct.
+In the second step, we will conduct experiments on not only different thread count but also varied scheduling strategies and monitor on Pawsey's performance changes with OpenMP parallelzation library. The performance can be determined by the execution time elapsed given different parameters. To best ensure no performance degradation overtime and minimize impact of individual behavior on a single pawsey unit, our experiments have been splitted into multiple sub tasks, each responsible for certain range of threads count.
+
+# Experiment Setup
+A parallel implementation of the compressed matrix multiplication was developed using OpenMP. We would like to explore the impacts of the following aspects of the parallelization process on execution time.
+
+1. Number of Threads 1-240
+2. Parameters: Percentage of non-zeros in matrices(1,2,5)
+               Matrix dimension size (100000 rows and 100000 columns)
+3. Thread Scheduling (Static - default, Dynamic, Guided)
+
+In our experiment, the number of threads goes from 1 thread to 240 threads. There are three matrix multiplications for experiment with each thread count, with different percentages of non-zeros in matrices (1%, 2%, 5%). After conducting the first part of the experiment, the most optimal thread count was found. We would then run experiment with other thread schedulings with that optimal value.
+
+## Compressed Matrix Multipication Implementation
+
+## Experiment Part 1 Result
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(ggplot2)
+library(gridExtra)
+
+# Data
+data <- data.frame(
+  num_thread =  c(1, 2, 5, 10, 20, 40, 80, 120),
+  percent_1 = c(1604.39, 814.507, 337.936, 197.947, 108.282, 64.2614, 64.6179, 71.84),
+  percent_2 = c(5999.23, 3005.59, 1214.35, 688.519, 353.096, 239.968, 185.006, 149.679),
+  percent_5 = c(34327.9, 17133.4, 6907.46, 3889.31, 1951.35, 1207.59, 778.801, 646.755)
+)
+
+# Percent 1% plot
+p1 <- ggplot(data, aes(x = num_thread)) +
+  geom_smooth(aes(y = percent_1, color = "1%"), se = FALSE) +
+  geom_point(aes(y = percent_1)) +
+  labs(title = "1% Non-zero Matrix",
+       x = "Number of Threads (log scale)",
+       y = "Time (s)",
+       color = "Non-zeros (%)") +
+  scale_color_manual(values = "steelblue") +
+  scale_x_log10(breaks = c(1, 2, 5, 10, 20, 40, 80, 120))
+
+# Percent 2% plot
+p2 <- ggplot(data, aes(x = num_thread)) +
+  geom_smooth(aes(y = percent_2, color = "2%"), se = FALSE) +
+  geom_point(aes(y = percent_2)) +
+  labs(title = "2% Non-zero Matrix",
+       x = "Number of Threads (log scale)",
+       y = "Time (s)",
+       color = "Non-zeros (%)") +
+  scale_color_manual(values = "magenta") +
+  scale_x_log10(breaks = c(1, 2, 5, 10, 20, 40, 80, 120))
+
+# Percent 5% plot
+p3 <- ggplot(data, aes(x = num_thread)) +
+  geom_smooth(aes(y = percent_5, color = "5%"), se = FALSE) +
+  geom_point(aes(y = percent_5)) +
+  labs(title = "5% Non-zero Matrix",
+       x = "Number of Threads (log scale)",
+       y = "Time (s)",
+       color = "Non-zeros (%)") +
+  scale_color_manual(values = "darkgreen") +
+  scale_x_log10(breaks = c(1, 2, 5, 10, 20, 40, 80, 120))
+
+# Combined plot (your original one)
+p_combined <- ggplot(data, aes(x = num_thread)) +
+  geom_smooth(aes(y = percent_1, color = "1%"), se = FALSE) +
+  geom_smooth(aes(y = percent_2, color = "2%"), se = FALSE) +
+  geom_smooth(aes(y = percent_5, color = "5%"), se = FALSE) +
+  geom_point(aes(y = percent_1)) +
+  geom_point(aes(y = percent_2)) +
+  geom_point(aes(y = percent_5)) +
+  labs(title = "Execution Time vs Thread Count",
+       x = "Number of Threads (log scale)",
+       y = "Time (s)",
+       color = "Non-zeros (%)") +
+  scale_color_manual(values = c(
+    "1%" = "steelblue",
+    "2%" = "magenta",
+    "5%" = "darkgreen")) +
+  scale_x_log10(breaks = c(1, 2, 5, 10, 20, 40, 80, 120))
+
+# Arrange the plots in a 2x2 grid
+p1
+p2
+p3
+p_combined
+
+```
+
+
+## Experiments on Thread Count
+{minTime: 52.1606, threadCount: 60}
+{minTime: 149.679, threadCount: 120}
+{minTime: 632.536, threadCount: 116}
+## Experiments on Scheduling Strategies
+
+
