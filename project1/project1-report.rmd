@@ -14,9 +14,10 @@ library(gridExtra)
 ```
 
 # Introduction
-Matrix multiplication becomes increasingly expensive as the dimension size grows, particularly with sparse matrices, which contain mostly zero values and only a few non-zero elements. This results in unnecessary computations involving zeros, making the process inefficient in terms of both time and memory. In this project, we implemented a customized, simplified version of compressed matrix multiplication to tackle these inefficiencies. Our goal was to parallelize the compressed matrix multiplication and conduct a series of experiments to evaluate the impact of various parameters and parallelization strategies on execution time. All code implementations and lab results are included in the submitted zip file.
+Matrix multiplication becomes increasingly expensive as the dimension size grows, particularly with sparse matrices, which contain mostly zero values and only a few non-zero elements. This results in unnecessary computations involving zeros, making the process inefficient in terms of both time and memory. In this project, we implemented a customized, simplified version of compressed matrix multiplication to tackle these inefficiencies. Our goal was to parallelize the compressed matrix multiplication and conduct a series of experiments to evaluate the impact of various parameters and parallelization strategies on execution time. All code implementations are included in the submitted zip file. The experiment outputs and generated matrices can be found in `/scratch/courses0101/liudayubob` on Pawsey. Please refer to the `README.md` for instructions on how to run the code.
+\vspace{0.5cm}
 
-## Project Workflow
+# Project Workflow
 The project can be divided into two main parts:
 
 **1. Implementation:**  
@@ -25,30 +26,9 @@ In the first step, we implemented a compressed matrix multiplication algorithm. 
 **2. Parallel Experiments:**  
 In the second step, we conducted experiments using different thread counts and scheduling strategies. We monitored the performance using OpenMP parallelization on Pawsey supercomputer. Performance was evaluated based on execution time across various parameter settings. To avoid performance degradation over time and minimize the impact of individual unit behavior on Setonix, our experiments were split into multiple sub-tasks, each handling a specific range of thread counts.
 
-## Experiment Setup
-The following parameters were explored during the experiments:
+\vspace{0.5cm}
 
-**Fixed Parameters:**
-\begin{itemize}
-  \item Matrix dimension size: 100,000 x 100,000
-\end{itemize}
-
-**Experiment 1: Thread Count**
-\begin{itemize}
-  \item Number of Threads: 1-120
-  \item Percentage of non-zero values in matrices: 1%, 2%, and 5%
-\end{itemize}
-
-In the first experiment, the number of threads ranged from 1 to 120. Three matrix multiplications were performed for each thread count, with varying percentages of non-zero elements (1%, 2%, and 5%).
-
-**Experiment 2: Scheduling Strategies**
-\begin{itemize}
-  \item Thread Scheduling strategies: Static, Dynamic, Guided, Runtime
-  \item Chunk size: Default (0), 100, 200, 500
-\end{itemize}
-
-In the second experiment, the matrix with 1% non-zero elements was used to explore the impact of different scheduling strategies. The optimal thread count for 1% matrix multiplication (60 threads) was used throughout. Since the matrix size is large (100,000 x 100,000), chunk size plays a crucial role in performance. Thus, experiments with different chunk sizes (100, 200, 500) were also conducted, with the default chunk size (indicated as 0) serving as a baseline.
-
+# Implementation
 ## Matrix Generation
 The `generateMatrices()` function is responsible for creating matrices with a specified density of non-zero values. Each element in the matrix is assigned a value based on a random selection process that determines whether it will be a non-zero value, according to the specified density (percent).
 
@@ -65,6 +45,32 @@ For each element in the compressed matrix, its value and corresponding index are
 To validate the correctness of the compressed matrix multiplication, we implemented a standard matrix multiplication function, `matrixMultiply()`. This function was used to generate the results of a full, uncompressed matrix multiplication.
 
 To verify accuracy, the `checkIntegrity()` function compared the outputs of the ordinary and compressed multiplication methods. This comparison was performed row by row and column by column within a two-layer loop, ensuring that each corresponding element in both result matrices matched.
+
+\vspace{0.5cm}
+# Experiments
+## Experiment Setup
+The following parameters were explored during the experiments:
+
+**Fixed Parameters:**
+\begin{itemize}
+  \item Matrix dimension size: 100,000 x 100,000
+\end{itemize}
+
+**Experiment 1: Thread Count**
+\begin{itemize}
+  \item Number of Threads: 1-120
+  \item Percentage of non-zero values in matrices: 1%, 2%, and 5%
+\end{itemize}
+
+In the first experiment, the number of threads ranged from 1 to 120. Although 120 is not the theoretical limit as per Pawsey's website, higher thread counts were not available for allocation. For each thread count, three matrix multiplications were executed, varying the percentage of non-zero elements in the matrices (1%, 2%, and 5%).
+
+**Experiment 2: Scheduling Strategies**
+\begin{itemize}
+  \item Thread Scheduling strategies: Static, Dynamic, Guided, Runtime
+  \item Chunk size: Default (0), 100, 200, 500
+\end{itemize}
+
+In the second experiment, the matrix with 1% non-zero elements was used to explore the impact of different scheduling strategies. The optimal thread count for 1% matrix multiplication (60 threads) was used throughout. Since the matrix size is large (100,000 x 100,000), chunk size plays a crucial role in performance. Thus, experiments with different chunk sizes (100, 200, 500) were also conducted, with the default chunk size (indicated as 0) serving as a baseline.
 
 ## Experiment 1
 In the main program (`project1.c`), command-line arguments divide the workload by specifying different thread ranges and sparsity percentages for the compressed matrix multiplication task. This enables us to break the task into sub-tasks, each responsible for a specific range of threads on a certain set of matrices. 
@@ -151,7 +157,7 @@ p_combined <- ggplot(data, aes(x = num_thread)) +
 # Arrange the plots in a 2x2 grid
 p1
 ```
-However, for the larger 2% and 5% non-zero matrices, the optimal performance was reached with 116-120 threads, which is the maximum thread count allowed by Pawsey for our experiments. The increased density of non-zero elements results in a larger computational workload, which can be more efficiently parallelized across more threads, reducing the overall time as more threads can handle the larger task in parallel.
+However, for the larger 2% and 5% non-zero matrices, optimal performance was achieved with 116-120 threads, the highest thread count in our experiments. The increased density of non-zero elements results in a larger computational workload, which can be more efficiently parallelized across more threads, reducing the overall time as more threads can handle the larger task in parallel.
 
 Another plausible explanation is that for larger matrices like the 2% and 5% cases, the increased memory demands can hinder performance gains, thus requiring a higher thread count to achieve optimal performance. To address these memory-bound limitations, reducing memory consumption by using smaller data types, such as representing numerical values from 0-10 with char instead of int, might shift the local minimum execution time to a lower thread count.
 
@@ -207,21 +213,36 @@ p_chunk100 <- ggplot(data, aes(x = Scheduling, y = Chunk_100, fill = Scheduling)
   geom_bar(stat = "identity") +
   labs(title = "Chunk Size 100", x = "Scheduling Type", y = "Elapsed Time (s)") +
   theme_minimal() +
-  ylim(y_limits)
+  ylim(y_limits) +
+  theme(
+    axis.title = element_text(size = rel(0.8)),  # Adjust axis title size
+    axis.text = element_text(size = rel(0.8)),   # Adjust axis labels size
+    plot.title = element_text(size = rel(0.8))   # Adjust plot title size
+  )
 
 # Chunk Size 200 Plot
 p_chunk200 <- ggplot(data, aes(x = Scheduling, y = Chunk_200, fill = Scheduling)) +
   geom_bar(stat = "identity") +
   labs(title = "Chunk Size 200", x = "Scheduling Type", y = "Elapsed Time (s)") +
   theme_minimal() +
-  ylim(y_limits)
+  ylim(y_limits) +
+  theme(
+    axis.title = element_text(size = rel(0.8)),  # Adjust axis title size
+    axis.text = element_text(size = rel(0.8)),   # Adjust axis labels size
+    plot.title = element_text(size = rel(0.8))   # Adjust plot title size
+  )
 
 # Chunk Size 500 Plot
 p_chunk500 <- ggplot(data, aes(x = Scheduling, y = Chunk_500, fill = Scheduling)) +
   geom_bar(stat = "identity") +
   labs(title = "Chunk Size 500", x = "Scheduling Type", y = "Elapsed Time (s)") +
   theme_minimal() +
-  ylim(y_limits)
+  ylim(y_limits) +
+  theme(
+    axis.title = element_text(size = rel(0.8)),  # Adjust axis title size
+    axis.text = element_text(size = rel(0.8)),   # Adjust axis labels size
+    plot.title = element_text(size = rel(0.8))   # Adjust plot title size
+  )
 
 # Arrange all plots in a 2x2 grid
 p_chunk0

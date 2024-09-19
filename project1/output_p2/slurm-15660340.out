@@ -1,0 +1,45 @@
+srun ./project1 start 60 1
+Running with --cpus-per-task=60
+==================Running Project Part 2====================
+mode: start
+num_of_threads: 60
+percent: 1
+NROWS: 100000
+NCOLS: 100000
+==================Loading Matrices====================
+Loading matrices with probability: 1
+Matrices loaded!
+==================Starting Experiments====================
+<<<<<<<<<< Evaluating schedulings with probability: 1 and 60 threads >>>>>>>>>>
+Testing with scheduling: static and chunk size 0 >>>>>>>>>>
+Elapsed time for static scheduling and chunk size 0: 113.135 seconds
+Testing with scheduling: static and chunk size 100 >>>>>>>>>>
+Elapsed time for static scheduling and chunk size 100: 108.379 seconds
+Testing with scheduling: static and chunk size 200 >>>>>>>>>>
+Elapsed time for static scheduling and chunk size 200: 105.574 seconds
+Testing with scheduling: static and chunk size 500 >>>>>>>>>>
+Elapsed time for static scheduling and chunk size 500: 117.003 seconds
+Testing with scheduling: dynamic and chunk size 0 >>>>>>>>>>
+Elapsed time for dynamic scheduling and chunk size 0: 61.9773 seconds
+Testing with scheduling: dynamic and chunk size 100 >>>>>>>>>>
+Elapsed time for dynamic scheduling and chunk size 100: 70.7232 seconds
+Testing with scheduling: dynamic and chunk size 200 >>>>>>>>>>
+Elapsed time for dynamic scheduling and chunk size 200: 73.1157 seconds
+Testing with scheduling: dynamic and chunk size 500 >>>>>>>>>>
+Elapsed time for dynamic scheduling and chunk size 500: 87.7587 seconds
+Testing with scheduling: guided and chunk size 0 >>>>>>>>>>
+Elapsed time for guided scheduling and chunk size 0: 101.167 seconds
+Testing with scheduling: guided and chunk size 100 >>>>>>>>>>
+Elapsed time for guided scheduling and chunk size 100: 85.1109 seconds
+Testing with scheduling: guided and chunk size 200 >>>>>>>>>>
+Elapsed time for guided scheduling and chunk size 200: 102.415 seconds
+Testing with scheduling: guided and chunk size 500 >>>>>>>>>>
+Elapsed time for guided scheduling and chunk size 500: 100.459 seconds
+Testing with scheduling: runtime and chunk size 0 >>>>>>>>>>
+Elapsed time for runtime scheduling and chunk size 0: 89.1588 seconds
+Testing with scheduling: runtime and chunk size 100 >>>>>>>>>>
+Elapsed time for runtime scheduling and chunk size 100: 89.7971 seconds
+Testing with scheduling: runtime and chunk size 200 >>>>>>>>>>
+Elapsed time for runtime scheduling and chunk size 200: 88.615 seconds
+Testing with scheduling: runtime and chunk size 500 >>>>>>>>>>
+Elapsed time for runtime scheduling and chunk size 500: 91.4995 seconds
