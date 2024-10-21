@@ -21,8 +21,8 @@ void writeMatrixToFile(const vector<vector<int>> &values, const vector<vector<in
 
     // open two files for writing
     FILE *fpb, *fpc;
-    string fileB = "FileB_matrix" + suffix + '.txt';
-    string fileC = "FileC_matrix" + suffix + '.txt';
+    string fileB = "FileB_matrix" + suffix;
+    string fileC = "FileC_matrix" + suffix;
 
     fpb=fopen(fileB.c_str(), "w");
     fpc=fopen(fileC.c_str(), "w");
@@ -123,10 +123,10 @@ void compressedMatrixMultiply(const vector<vector<int>>& Xvalues, const vector<v
  * @description Time the entire experiment, and write matrices if in debug mode
  * @param rank {int}, MPI rank
  * @param nProcesses {int}, Number of MPI processes
+ * @param nThreads {int}, Number of OpenMP threads
  * @param percent {int}, Density of non-zero elements
- * @return {double}, Elapsed time in seconds
  */
-double startExperiment(int rank, int nProcesses, int percent) {
+void startExperiment(int rank, int nProcesses, int nThreads, int percent) {
     auto start = std::chrono::high_resolution_clock::now();
 
     cout << "==================Generating Matrices====================" << endl;
@@ -138,17 +138,23 @@ double startExperiment(int rank, int nProcesses, int percent) {
     generateMatrices(Yvalues, Yindices, percent, rank, nProcesses);
 
     // Synchronize before starting matrix multiplication
+#ifdef _MPI
     MPI_Barrier(MPI_COMM_WORLD);
+#endif
 
     cout << "==================Mutiplying Matrices====================" << endl;
 
 #ifdef _OPENMP
     omp_set_num_threads(nThreads);
 #endif
+
+    // Matrix multiplication
     compressedMatrixMultiply(Xvalues, Xindices, Yvalues, Yindices, result);
 
     // Synchronize before time measurement
+#ifdef _MPI
     MPI_Barrier(MPI_COMM_WORLD);
+#endif
 
     auto end = std::chrono::high_resolution_clock::now();
     time_t end_time = std::chrono::system_clock::to_time_t(end);
@@ -166,11 +172,10 @@ double startExperiment(int rank, int nProcesses, int percent) {
             writeMatrixToFile(Yvalues, Yindices, "Y" + suffix);
             writeMatrixToFile(result, result, "XY" + suffix);
         }
-        return elapsed;
     }
 }
 
-double main(int argc, char *argv[]) {
+int main(int argc, char *argv[]) {
     int nSize = 10000; // Default matrix size
     int percent = 1;  // Matrix density in percentage
     int rank = 0;  // MPI current process
@@ -211,16 +216,20 @@ double main(int argc, char *argv[]) {
         cout << "[OEPNMP] Running OpenMP with " << nThreads << " threads." << endl;
     #endif
 #else
-    // if only MPI is enabled
-    cout << "[MPI] Running MPI with " << nProcesses << " processes." << endl;
+    #ifdef _MPI
+        // if only MPI is enabled
+        cout << "[MPI] Running MPI with " << nProcesses << " processes." << endl;
+    #else
+        // if neither MPI nor OpenMP is enabled
+        cout << "[SEQ] Running sequential with 1 processes and 1 threads." << endl;
+    #endif
 #endif
 
-
     // Start the experiment
-    double elapsed = startExperiment(rank, nProcesses, percent);
+    startExperiment(rank, nProcesses, nThreads, percent);
 
 #ifdef _MPI
     MPI_Finalize();
 #endif
-    return elapsed;
+    return 0;
 }
