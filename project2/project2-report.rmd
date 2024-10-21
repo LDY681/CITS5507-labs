@@ -1,0 +1,158 @@
+---
+title: 'CITS5507 Project 2: Parallel Implementation and Discovery with different settings'
+author: "Dayu Liu (24188516)"
+date: "Semester 2, 2024"
+output: pdf_document
+graphics: true
+---
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+library(ggplot2)
+library(knitr)
+library(gridExtra)
+```
+
+# Introduction
+Matrix multiplication becomes increasingly expensive as the dimension size grows, particularly with sparse matrices, which contain mostly zero values and only a few non-zero elements. This results in unnecessary computations involving zeros, making the process inefficient in terms of both time and memory. In this research, we implemented a customized, simplified version of compressed matrix multiplication to address these inefficiencies. In the last project, we have explored how OpenMP enhances parallelization and improves the performance of compressed matrix multiplication by experimenting with different thread counts and parallelization strategies.
+
+In Project 2, we aimed to integrate MPI on top of OpenMP and conducted a series of experiments with different approaches (Sequential, Pure OpenMP, Pure MPI, and MPI+OpenMP), along with various parameter combinations (number of nodes, processes per node, and threads per process). In the sequential experiments, we successfully determined which matrix density could handle the largest matrix size within a 10-minute time constraint. However, due to resource limitations on the Pawsey supercomputer, we later shifted our objective to focus on evaluating which configurations could complete the task most efficiently in the subsequent experiments.
+
+All code implementations are included in the submitted zip file. Please refer to the comments in the `project2.sh` for instructions on how to run the code.
+\vspace{0.5cm}
+
+# Project Workflow
+The project can be divided into two main parts:
+
+**1. MPI Code Implementation:**  
+In the first step, we started with the code from project1, we integrated implementations on MPI. The computing tasks are splitted evenly betwwen processes by distributes an equal range of rows to compute to each process. Barriers for collection are properly applied to make sure the result is right. Some other key changes include now we don't write matrices to files when generating, instead they are saved after the experiment with `DEBUG` on to avoid taking account of time taken with heavy load File I/O operations. We also get rid of some unused functions on project 1's ordinary `matrixMultiply()`.    
+
+**2. Parallel Experiments:**  
+In the second step, we conducted experiments using varying node counts, process counts, and thread counts. The performance was monitored using Sequential, MPI, OpenMP, and MPI+OpenMP parallelization on the Pawsey supercomputer. Performance was evaluated based on execution time across different configurations. To conserve computing resources and address the usage shortage, our experiments focused on several key configurations rather than running them in bulk.
+
+\vspace{0.5cm}
+
+# Implementation
+## Matrix Generation
+The `generateMatrices()` function is responsible for creating matrices with a specified density of non-zero values. Each element in the matrix is assigned a value based on a random selection process that determines whether it will be a non-zero value, according to the specified density (percent).
+
+This function generates two compressed matrices (values and indices) row by row. When a non-zero value is selected, a numerical value between 1 and 10 is assigned. These non-zero elements, along with their column indices, are stored in two corresponding compressed matrices.
+
+## Compressed Matrix Multiplication Implementation
+The function `compressedMatrixMultiply()` leverages both MPI and OpenMP to parallelize the multiplication of compressed matrices.  It divides the main loop into smaller sub-loops for each process, assigning a specific range of rows between `start_row` and `end_row` to each process. These sub-loops are then parallelized using OpenMP's `parallel for` directive, which distributes the work among a given number of threads.
+
+For each element in the compressed matrix, its value and corresponding index are extracted. These values are then used to compute the product, and the result is added directly to the appropriate position in the result matrix.
+
+## MPI and OpenMP flags
+To make sure we can apply different combinations (Sequential, Pure OpenMP, Pure MPI and MPI+OpenMP) in a unified code base, flags for MPI `_MPI` and OpenMP `_OPENMP` are used to check if either are enabled, this is done by adding `-fopenmp` and customized `-D_MPI` flags when compiling the program, a hybrid combination would look like this: `mpicxx -fopenmp -D_MPI -o project2 project2.c`. After that we would use these flags to decide whether we need to initialize and utilize MPI/OpenMP functionalities during computation. 
+
+## Message broadcasting and barrier
+Process 0 is responsible for generating the compressed matrices. After the generation is complete, the resulting matrices are flattened into 1-D arrays using the `flattenCompressedMatrix()` function, and the sizes of each row are recorded for MPI broadcasting. The data is then broadcast to all other processes using `MPI_Bcast()`. Each process receives the flattened array and reconstructs the original matrix using the `reconstructCompressedMatrix()` function, ensuring that all processes are working with the same data for parallel computation.
+
+At the end of `compressedMatrixMultiply()`, a MPI barrier is applied to ensure that all processes have completed their computations. Once this synchronization is achieved, each process uses `MPI_Send()` to send its computed results to process 0. Process 0 then gathers these results using `MPI_Recv()`, consolidating the data to finalize the result.
+ 
+\vspace{0.5cm}
+# Experiments
+## Experiment Setup
+The following parameters were explored during the experiments:
+
+**Experiment 1: Time estimation based on Matrix size and Non-zero Density**
+\begin{itemize}
+  \item Maximum Time allowed: 10 minutes
+  \item Percentage of non-zero values in matrices: 1%, 2%, and 5%
+\end{itemize}
+
+In the first experiment, we would like to determine the impact of matrix size and non-zero element density (1%, 2%, and 5%) on execution time. Due to limited resources, the experiment was executed sequentially, though the insights gained should be applicable to other parallel configurations as well.
+
+**Experiment 2: Combination Comparison between different parallelization**
+\begin{itemize}
+  \item Matrix dimension size: 100,000 x 100,000
+  \item Parallel Combination: Pure MPI, Pure OpenMP, MPI+OpenMP
+\end{itemize}
+
+In the second experiment, the matrix with 1% non-zero elements was used to explore the impact of different parallel combinations. The goal was to fully utilize all 128 physical cores per node for optimal performance. In the pure MPI experiment, 128 processes per node were created. In the pure OpenMP experiment, 128 threads per process were used. For the MPI+OpenMP experiment, we allocated 4 MPI processes per node, with 32 OpenMP threads per process.
+
+## Experiment 1
+In the batch file (`project2.sh`), we started with a 10,000 x 10,000 matrix and  doubled the size in each iteration to find a rough estimate of the largest matrix size that could be computed within 10 minutes. Once a rough estimate was obtained, we fine-tuned by incrementing the matrix size by 1000 in subsequent iterations to arrive at a more precise maximum size.
+
+The executable is compiled once and reused across multiple iterations. An argument flag `--time=00:10:00` is applied to `srun` to ensure the program terminates if it exceeds the 10-minute time limit. Once the program has been terminated, we identified the last successful iteration and recorded its corresponding matrix size.
+
+## Experiment 1 Result
+For the 1% non-zero matrix, the maximum matrix size computed within the 10-minute constraint was 68,000 x 68,000, taking 588.622 seconds. For the 2% non-zero matrix, the maximum size dropped significantly to 46,000 x 46,000, taking 588.921 seconds, which is roughly 1/2.18 of the 1% matrix size. For the 5% non-zero matrix, the maximum size was reduced further to 26,000 x 26,000 (1/6.84 compared to the 1% matrix), taking 597.242 seconds.
+
+The significant decline in matrix size can be attributed to the increased computational workload as matrix density rises. At 1% density, the abundance of zero elements allows the algorithm to bypass many operations, focusing only on non-zero values. However, as density increases to 2% and 5%, the proportion of non-zero elements grows, leaving fewer opportunities to skip computations. This leads to a surge in the number of necessary multiplications and additions, which directly impacts performance, resulting in longer processing times for denser matrices.
+
+| Non-zero Density    | Time Elapsed (s) | Matrix Size Achieved |
+|---------------------|------------------|----------------------|
+| 1%                  | 588.622          | 68,000 x 68,000      |
+| 2%                  | 588.921          | 46,000 x 46,000      |
+| 5%                  | 597.242          | 26,000 x 26,000      |
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Required Libraries
+library(ggplot2)
+library(gridExtra)
+
+# Data
+data <- data.frame(
+  Matrix_density = c(1, 2, 5),
+  Matrix_size = c(68000, 46000, 26000),
+  Time_taken = c(588.622, 588.921, 597.242),
+)
+
+exp1 <- ggplot(data, aes(x = Matrix_density, y = Matrix_size, fill = Time_taken)) +
+  geom_bar(stat = "identity") +
+  geom_text(aes(label = paste(Time_taken, "s"), vjust = -0.5)) + # Display time inside each bar
+  labs(title = "Non-zero Density Vs. Matrix Size", x = "Non-zero Density", y = "Matrix Size") +
+  theme_minimal()
+
+exp1
+```
+
+## Experiment 2
+Experiment 2 explored how different configurations of MPI processes and OpenMP threads affect the performance of matrix multiplication. The 1% non-zero density matrix was chosen for consistency and to conserve computational resources, as it had previously been shown to be the least computationally expensive compared to denser matrices.
+
+An argument `--nodes==X` can be used to allocate multiple nodes for computation. In the main program (`project2.c`), command-line arguments divide the workload by specifying different numbers of processes per node and threads per process for parallelized compressed matrix multiplication. For example, the command `sbatch --nodes=1 project2.sh hybrid 100000 1 4 32` utlizes 1 node, 4 processes per node and 32 threads per process, applying both MPI and OpenMP to compute a matrix size of 100000 x 100000 with 1% non-zero elements.
+
+This enables us to break the task into sub-tasks, each responsible for a specific range of threads on a certain set of matrices. Once the matrices are generated and sent to all allocated processes, the `compressedMatrixMultiply()` function is executed given a specific range of rows using MPI processes, and across varying thread counts, with OpenMP used to parallelize the operation. The execution time is recorded once process 0 has successfully gathered all the results, allowing us to evaluate the performance at different levels of parallelization.
+
+This approach enables us to break the task into smaller sub-tasks, each handled by a specific process and thread combination, targeting a particular range of matrix rows. After generating and distributing the matrices across all allocated MPI processes, the `compressedMatrixMultiply()` function is executed, with each MPI process responsible for a designated range of rows. OpenMP is then used within each process to parallelize the operation over the specified number of threads. The overall execution time is measured once process 0 has successfully gathered the results from all other processes, allowing us to evaluate the performance at different levels of parallelization.
+
+## Experiment 2 result
+In the pure OpenMP approach, we observed very similar performance, with a runtime of 75.5754 seconds using 32 threads and 71.84 seconds using 128 threads. This can be attributed to the relatively smaller computational workload, where the overhead of thread management and switching outweighs the benefit of utilizing more threads. When dealing with a smaller-size matrix like this, excessive threading can introduce inefficiencies, as the workload is too small to be effectively divided among many threads.
+
+With the pure MPI approach using 128 processes, we witnessed the longest runtime of 152.957 seconds. A plausible explanation is that, while pure computation may benefit from such parallelism, the overhead introduced from communication and data distribution outweighed the benefits of dividing the workload among more processes. This resulted in a significantly higher runtime compared to a single-process OpenMP setup.
+
+With the hybrid approach of 4 MPI processes and 32 OpenMP threads per process, we observed a runtime of 53.0622 seconds, which is remarkably close to our best observation in Project 1, where 60 threads yielded a runtime of 52.1606 seconds. This result indicates that this hybrid combination successfully balances parallelism at both the process and thread levels, minimizing overhead while efficiently dividing the workload.
+
+However, all of these approaches significantly outperform the sequential case. For example, the computation for a 68,000 x 68,000 matrix in the sequential approach alone took over 588.622 seconds.
+
+> Unfortunately, due to resource constraints, completing the sequential computation for a 100,000 x 100,000 matrix was not feasible, as the time required would far exceed available limits.
+
+| Approach    | Parameters              | Matrix Size          | Time elapsed (s) |
+|-------------|-------------------------|----------------------|------------------|
+| Pure OpenMP | 32 OpenMP Threads       | 100,000 x 100,000    | 75.5754          |
+| Pure OpenMP | 128 OpenMP Threads      | 100,000 x 100,000    | 71.84            |
+| Pure MPI    | 128 MPI Processes       | 100,000 x 100,000    | 152.957          |
+| Hybrid      | 4 Processes/32 Threads  | 100,000 x 100,000    | 53.0622          |
+| Sequential  | 1 Process/1 Thread      |  68,000 x  68,000    | 588.622          |
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Required Libraries
+library(ggplot2)
+library(gridExtra)
+
+# Data
+data <- data.frame(
+  Matrix_density = c(1, 2, 5),
+  Matrix_size = c(68000, 46000, 26000),
+  Time_taken = c(588.622, 588.921, 597.242),
+)
+
+exp1 <- ggplot(data, aes(x = Matrix_density, y = Matrix_size, fill = Time_taken)) +
+  geom_bar(stat = "identity") +
+  geom_text(aes(label = paste(Time_taken, "s"), vjust = -0.5)) + # Display time inside each bar
+  labs(title = "Non-zero Density Vs. Matrix Size", x = "Non-zero Density", y = "Matrix Size") +
+  theme_minimal()
+
+exp1
+```

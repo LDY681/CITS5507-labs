@@ -1,6 +1,7 @@
 #!/bin/bash
-#SBATCH --mem=200G
-#SBATCH --time=00:10:00
+# --mem=220G --time=08:00:00
+#SBATCH --mem=100G
+#SBATCH --time=01:00:00
 #SBATCH --partition=work
 #SBATCH --account=courses0101
 
@@ -18,7 +19,7 @@ export OMP_PROC_BIND=spread  # Ensure threads are spread across cores
 export OMP_PLACES=cores      # Bind each thread to a specific core
 
 # For small increment size
-INCREMENT=1000
+# INCREMENT=1000
 
 # Compile the program based on different mode
 if [ "$MODE" == "seq" ]; then
@@ -42,34 +43,33 @@ else
     exit 1
 fi
 
-# Run experiments with increasing size until timeout
+# TODO: To run experiment 1 (matrix size finding), uncomment the while loop and last 4 lines of code)
 # while true; do
   # Execute based on the mode, reusing the compiled binary
-  if [ "$MODE" == "seq" ]; then
-      # Sequential mode
-      srun --time=00:10:00 ./project2 $SIZE $PERCENT
+if [ "$MODE" == "seq" ]; then
+    # Sequential mode
+    srun --time=00:10:00 ./project2 $SIZE $PERCENT
 
-  elif [ "$MODE" == "openmp" ]; then
-      # Pure OpenMP mode
-      srun --time=00:10:00 --cpus-per-task=$ARG3 ./project2 $SIZE $PERCENT $ARG3
+elif [ "$MODE" == "openmp" ]; then
+    # Pure OpenMP mode
+    srun --cpus-per-task=$ARG3 ./project2 $SIZE $PERCENT $ARG3
 
-  elif [ "$MODE" == "mpi" ]; then
-      # Pure MPI mode
-      srun --time=00:10:00 --ntasks-per-node=$ARG3 ./project2 $SIZE $PERCENT
+elif [ "$MODE" == "mpi" ]; then
+    # Pure MPI mode
+    srun --ntasks-per-node=$ARG3 ./project2 $SIZE $PERCENT
 
-  elif [ "$MODE" == "hybrid" ]; then
-      # MPI + OpenMP hybrid mode
-      srun --time=00:10:00 --ntasks-per-node=$ARG3 --cpus-per-task=$ARG4 ./project2 $SIZE $PERCENT $ARG4
-  fi
+elif [ "$MODE" == "hybrid" ]; then
+    # MPI + OpenMP hybrid mode
+    srun --ntasks-per-node=$ARG3 --cpus-per-task=$ARG4 ./project2 $SIZE $PERCENT $ARG4
+fi
 
-  # If srun exited due to timeout or error
-  if [ $? -ne 0 ]; then
+# If srun exited due to timeout or error
+if [ $? -ne 0 ]; then
     echo "[SBATCH] Srun terminated due to exceeding the time limit or error"
-    break
-  fi
+    # break
+fi
 
 #   # Increase matrix size by increment amount
-#   SIZE=$(($SIZE * 2))
-
+#   SIZE=$(($SIZE + $INCREMENT))
 #   echo "[SBATCH] Increasing matrix size to $SIZE"
 # done
