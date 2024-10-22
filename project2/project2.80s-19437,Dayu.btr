@@ -1,0 +1,14 @@
+
+project2:19437 terminated with signal 11 at PC=7fadf301f3fe SP=7ffdb0671e80.  Backtrace:
+/lib/x86_64-linux-gnu/libc.so.6(free+0x1e)[0x7fadf301f3fe]
+/lib/x86_64-linux-gnu/libhwloc.so.15(+0x95ab)[0x7fadf2f275ab]
+/lib/x86_64-linux-gnu/libhwloc.so.15(+0x9846)[0x7fadf2f27846]
+/lib/x86_64-linux-gnu/libhwloc.so.15(+0x97f9)[0x7fadf2f277f9]
+/lib/x86_64-linux-gnu/libhwloc.so.15(+0xa998)[0x7fadf2f28998]
+/lib/x86_64-linux-gnu/libhwloc.so.15(hwloc_topology_destroy+0x90)[0x7fadf2f28ac0]
+/lib/x86_64-linux-gnu/libmpich.so.12(+0x234106)[0x7fadf3623106]
+/lib/x86_64-linux-gnu/libmpich.so.12(PMPI_Finalize+0x16)[0x7fadf34d2026]
+./project2(+0x4956)[0x5635b5bb2956]
+/lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x7fadf2fa3d90]
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x7fadf2fa3e40]
+./project2(+0x2745)[0x5635b5bb0745]

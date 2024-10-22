@@ -1,5 +1,5 @@
 #!/bin/bash
-# --mem=220G --time=08:00:00
+# TODO To run experiment 2 and enable all 128 cores, use the following settings --mem=220G --time=08:00:00
 #SBATCH --mem=100G
 #SBATCH --time=01:00:00
 #SBATCH --partition=work
@@ -11,6 +11,10 @@ SIZE=$2         # Starting Matrix size (SIZE x SIZE)
 PERCENT=$3      # Matrix percentage
 ARG3=$4         # Threads (OpenMP) or Processes (MPI)
 ARG4=$5         # Threads (OpenMP for hybrid)
+
+# TODO How to run the code
+# sbatch [nNodes] project.sh [mode] [matrix_size] [non-zero density] [nProcesses | nThreads(MPI disabled)] [nThreads(MPI enabled)]
+# e.g. sbatch --nodes=4 project2.sh hybrid 100000 1 4 32
 
 echo "[SBATCH] Started with MODE=$MODE, SIZE=$SIZE, PERCENT=$PERCENT, ARG3=$ARG3, ARG4=$ARG4"
 
@@ -43,7 +47,7 @@ else
     exit 1
 fi
 
-# TODO: To run experiment 1 (matrix size finding), uncomment the while loop and last 4 lines of code)
+# TODO: To run experiment 1 (matrix size finding), uncomment the while loop, the INCREMENT variable and last 4 lines of code)
 # while true; do
   # Execute based on the mode, reusing the compiled binary
 if [ "$MODE" == "seq" ]; then

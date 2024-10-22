@@ -1,0 +1,16 @@
+
+project2:1514 terminated with signal 6 at PC=7f732acba9fc SP=7ffe36da0430.  Backtrace:
+/lib/x86_64-linux-gnu/libc.so.6(pthread_kill+0x12c)[0x7f732acba9fc]
+/lib/x86_64-linux-gnu/libc.so.6(raise+0x16)[0x7f732ac66476]
+/lib/x86_64-linux-gnu/libc.so.6(abort+0xd3)[0x7f732ac4c7f3]
+/lib/x86_64-linux-gnu/libc.so.6(+0x89676)[0x7f732acad676]
+/lib/x86_64-linux-gnu/libc.so.6(+0xa0cfc)[0x7f732acc4cfc]
+/lib/x86_64-linux-gnu/libc.so.6(+0xa2a54)[0x7f732acc6a54]
+/lib/x86_64-linux-gnu/libc.so.6(free+0x73)[0x7f732acc9453]
+/lib/x86_64-linux-gnu/libfabric.so.1(+0x188a9)[0x7f732aa8b8a9]
+/lib64/ld-linux-x86-64.so.2(+0x624e)[0x7f732d6ad24e]
+/lib/x86_64-linux-gnu/libc.so.6(+0x45495)[0x7f732ac69495]
+/lib/x86_64-linux-gnu/libc.so.6(on_exit+0x0)[0x7f732ac69610]
+/lib/x86_64-linux-gnu/libc.so.6(+0x29d97)[0x7f732ac4dd97]
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x7f732ac4de40]
+./project2(+0x2745)[0x561fc5711745]
