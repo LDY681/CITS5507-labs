@@ -1,5 +1,5 @@
 #!/bin/bash
-# TODO To run experiment 2 and enable all 128 cores, use the following settings --mem=220G --time=08:00:00
+# --mem=220G --time=08:00:00
 #SBATCH --mem=100G
 #SBATCH --time=01:00:00
 #SBATCH --partition=work
@@ -47,7 +47,9 @@ else
     exit 1
 fi
 
-# TODO: To run experiment 1 (matrix size finding), uncomment the while loop, the INCREMENT variable and last 4 lines of code)
+# TODO: To run experiment 1 (matrix size finding), uncomment the while loop and last 4 lines of code)
+# TODO: To run experiment 2 (parallel configuration), submit a job with correct parameters of each setting
+
 # while true; do
   # Execute based on the mode, reusing the compiled binary
 if [ "$MODE" == "seq" ]; then

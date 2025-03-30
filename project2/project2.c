@@ -96,9 +96,11 @@ void generateMatrices(vector<vector<int>>& values, vector<vector<int>>& indices,
 void compressedMatrixMultiply(const vector<vector<int>>& Xvalues, const vector<vector<int>>& Xindices, 
                               const vector<vector<int>>& Yvalues, const vector<vector<int>>& Yindices,
                               vector<vector<int>>& result, int rank, int nProcesses) {
+
     int local_rows = NROWS / nProcesses;
     int start_row = rank * local_rows;
     int end_row = (rank == nProcesses - 1) ? NROWS : start_row + local_rows;
+    
 #ifdef _OPENMP
     #pragma omp parallel for
 #endif
@@ -123,34 +125,12 @@ void compressedMatrixMultiply(const vector<vector<int>>& Xvalues, const vector<v
 
     // Gather the results from all processes to rank 0
     if (rank == 0) {
-        for (int i = 1; i < nProcesses; ++i) {  
-            int local_rows_i = NROWS / nProcesses;
-            int start_row_i = i * local_rows_i;
-            int end_row_i = (i == nProcesses - 1) ? NROWS : start_row_i + local_rows_i;
-
-            vector<int> flattened_result((end_row_i - start_row_i) * NCOLS);
-            MPI_Recv(flattened_result.data(), (end_row_i - start_row_i) * NCOLS, MPI_INT, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-
-            // Reconstruct the 2D result from the flattened array
-            for (int i = start_row_i; i < end_row_i; ++i) {
-                for (int j = 0; j < NCOLS; ++j) {
-                    result[i][j] = flattened_result[(i - start_row_i) * NCOLS + j];
-                }
-            }
-
-            // MPI_Barrier(MPI_COMM_WORLD);
+        for (int i = 1; i < nProcesses; ++i) {
+            MPI_Recv(&result[0][0], NROWS * NCOLS, MPI_INT, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
         }
     } else {
         // Send local results to rank 0
-        vector<int> flattened_result((end_row - start_row) * NCOLS);
-        for (int i = start_row; i < end_row; ++i) {
-            for (int j = 0; j < NCOLS; ++j) {
-                flattened_result[(i - start_row) * NCOLS + j] = result[i][j];
-            }
-        }
-
-        MPI_Send(flattened_result.data(), (end_row - start_row) * NCOLS, MPI_INT, 0, 0, MPI_COMM_WORLD);
-        // MPI_Barrier(MPI_COMM_WORLD);
+        MPI_Send(&result[start_row][0], local_rows * NCOLS, MPI_INT, 0, 0, MPI_COMM_WORLD);
     }
 #endif
 }
@@ -185,7 +165,6 @@ void startExperiment(int rank, int nProcesses, int nThreads, int percent) {
     vector<vector<int>> Yvalues, Yindices;
     vector<vector<int>> result(NROWS, vector<int>(NCOLS, 0)); // Resulting matrix
 
-#ifdef _MPI
     // Flatten matrices for broadcast messaging sending
     vector<int> flattened_Xvalues, flattened_Xindices;
     vector<int> flattened_Yvalues, flattened_Yindices;
@@ -193,7 +172,6 @@ void startExperiment(int rank, int nProcesses, int nThreads, int percent) {
     // rowSizes Information for flattened matrices
     vector<int> rowSizes_Xvalues, rowSizes_Xindices;
     vector<int> rowSizes_Yvalues, rowSizes_Yindices;
-#endif
 
     if (rank == 0) {
         cout << "==================Generating Matrices====================" << endl;
@@ -202,15 +180,12 @@ void startExperiment(int rank, int nProcesses, int nThreads, int percent) {
         generateMatrices(Yvalues, Yindices, percent, rank, nProcesses);
         cout << "==================Mutiplying Matrices====================" << endl;
 
-#ifdef _MPI
         flattenCompressedMatrix(Xvalues, flattened_Xvalues, rowSizes_Xvalues);
         flattenCompressedMatrix(Xindices, flattened_Xindices, rowSizes_Xindices);
         flattenCompressedMatrix(Yvalues, flattened_Yvalues, rowSizes_Yvalues);
         flattenCompressedMatrix(Yindices, flattened_Yindices, rowSizes_Yindices);
-#endif
     }
 
-#ifdef _MPI
     // Broadcast generated matrices to all processes
     // 1. Broadcast row sizes first
     if (rank != 0) {
@@ -267,7 +242,6 @@ void startExperiment(int rank, int nProcesses, int nThreads, int percent) {
         reconstructCompressedMatrix(Yvalues, flattened_Yvalues, rowSizes_Yvalues);
         reconstructCompressedMatrix(Yindices, flattened_Yindices, rowSizes_Yindices);
     }
-#endif
 
 #ifdef _OPENMP
     omp_set_num_threads(nThreads);
@@ -301,6 +275,44 @@ void startExperiment(int rank, int nProcesses, int nThreads, int percent) {
     }
 }
 
+/**
+ * broadcastMatrix
+ * @description Broadcast matrices to all MPI processes
+ */
+void broadcastMatrix(vector<vector<int>>& values, vector<vector<int>>& indices, int rank) {
+    // Flatten the matrix so we can sent MPI broadcast
+    int value_size = values.size() * NCOLS;
+    int index_size = indices.size() * NCOLS;
+
+    vector<int> flat_values(value_size);
+    vector<int> flat_indices(index_size);
+
+    if (rank == 0) {
+        for (int i = 0; i < values.size(); i++) {
+            copy(values[i].begin(), values[i].end(), flat_values.begin() + i * NCOLS);
+            copy(indices[i].begin(), indices[i].end(), flat_indices.begin() + i * NCOLS);
+        }
+    }
+
+    // Broadcast the sizes of the flattened vectors
+    MPI_Bcast(&value_size, 1, MPI_INT, 0, MPI_COMM_WORLD);
+    MPI_Bcast(&index_size, 1, MPI_INT, 0, MPI_COMM_WORLD);
+
+    // Broadcast the flattened vectors
+    MPI_Bcast(flat_values.data(), value_size, MPI_INT, 0, MPI_COMM_WORLD);
+    MPI_Bcast(flat_indices.data(), index_size, MPI_INT, 0, MPI_COMM_WORLD);
+
+    // Deflatten array
+    if (rank != 0) {
+        values.resize(NROWS);
+        indices.resize(NROWS);
+        for (int i = 0; i < NROWS; i++) {
+            values[i].assign(flat_values.begin() + i * NCOLS, flat_values.begin() + (i + 1) * NCOLS);
+            indices[i].assign(flat_indices.begin() + i * NCOLS, flat_indices.begin() + (i + 1) * NCOLS);
+        }
+    }
+}
+
 int main(int argc, char *argv[]) {
     int nSize = 10000; // Default matrix size
     int percent = 1;  // Matrix density in percentage
@@ -312,7 +324,7 @@ int main(int argc, char *argv[]) {
     MPI_Init(&argc, &argv);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &nProcesses);
-    // MPI_Comm_set_errhandler(MPI_COMM_WORLD, MPI_ERRORS_RETURN); // Error handling
+    MPI_Errhandler_set(MPI_COMM_WORLD, MPI_ERRORS_RETURN); // Error handling
 #endif
 
     // Check command-line arguments
@@ -351,7 +363,7 @@ int main(int argc, char *argv[]) {
 #endif
     }
 
-    // Start the experiment
+    // // Start the experiment
     startExperiment(rank, nProcesses, nThreads, percent);
 
 #ifdef _MPI
